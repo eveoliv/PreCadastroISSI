@@ -1,0 +1,298 @@
+﻿@model InsanosPreCadastro.Domain.Formulario
+
+@{
+    ViewData["Title"] = "Novo Cadastro";
+}
+
+<div class="card-body">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select asp-for="Divisao" asp-items="@(new SelectList(@ViewBag.divisao))">
+                            <option disabled="disabled" selected="selected">Sua Divisão</option>
+                        </select>
+                        <span asp-validation-for="Divisao" style="color: #f00;"></span>
+                        <div class="select-dropdown"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="NomeColete" class="input--style-1" type="text" placeholder="* Nome no Colete">
+                    <span asp-validation-for="NomeColete" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input asp-for="NomeCompleto" class="input--style-1" type="text" placeholder="Nome Completo">
+            <span asp-validation-for="NomeCompleto" style="color: #f00;"></span>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="RG" class="input--style-1" type="text" placeholder="RG">
+                    <span asp-validation-for="RG" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="CPF" class="input--style-1" type="text" id="cpf" placeholder="CPF">
+                    <span asp-validation-for="CPF" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="DataNascimento" class="input--style-1 js-datepicker" type="text" id="data" placeholder="Data de Nascimento">
+                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                    <span asp-validation-for="DataNascimento" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="CEP" class="input--style-1" type="text" id="cep" placeholder="CEP" onblur="pesquisacep(this.value);">
+                    <span asp-validation-for="CEP" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="Endereco" class="input--style-1" type="text" id="rua" placeholder="Endereço">
+                    <span asp-validation-for="Endereco" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="Numero" class="input--style-1" type="number" placeholder="Número">
+                    <span asp-validation-for="Numero" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="Complemento" class="input--style-1" type="text" placeholder="Complemento">
+                    <span asp-validation-for="Complemento" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="Bairro" class="input--style-1" type="text" id="bairro" placeholder="Bairro">
+                    <span asp-validation-for="Bairro" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="Cidade" class="input--style-1" type="text" id="cidade" placeholder="Cidade">
+                    <span asp-validation-for="Cidade" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="UF" class="input--style-1" type="text" id="uf" placeholder="UF">
+                    <span asp-validation-for="UF" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input asp-for="Mail" class="input--style-1" type="text" placeholder="E-mail">
+            <span asp-validation-for="Mail" style="color: #f00;"></span>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="TelefoneCelular" class="input--style-1" type="text" id="fone" placeholder="Telefone Celular">
+                    <span asp-validation-for="TelefoneCelular" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="TelefoneFixo" class="input--style-1" type="text" id="fixo" placeholder="Telefone Fixo">
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="NomeContatoEmergencia" class="input--style-1" type="text" placeholder="Contato de Emergência: Nome">
+                    <span asp-validation-for="NomeContatoEmergencia" style="color: #f00;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input asp-for="TelefoneContatoEmergencia" class="input--style-1" type="text" id="misto" placeholder="Contato de Emergência: Telefone">
+                    <span asp-validation-for="TelefoneContatoEmergencia" style="color: #f00;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <input asp-for="Profissao" class="input--style-1" type="text" placeholder="Profissão">
+            <span asp-validation-for="Profissao" style="color: #f00;"></span>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select asp-for="TamanhoCamiseta" asp-items="@(new SelectList(@ViewBag.tamanho))">
+                            <option disabled="disabled" selected="selected">Tamanho da Camiseta</option>
+                        </select>
+                        <span asp-validation-for="TamanhoCamiseta" style="color: #f00;"></span>
+                        <div class="select-dropdown"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select asp-for="TamanhoColete" asp-items="@(new SelectList(@ViewBag.tamanho))">
+                            <option disabled="disabled" selected="selected">Tamanho do Colete</option>
+                        </select>
+                        <span asp-validation-for="TamanhoColete" style="color: #f00;"></span>
+                        <div class="select-dropdown"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select asp-for="MaterialColete" asp-items="@(new SelectList(@ViewBag.colete))">
+                            <option disabled="disabled" selected="selected">Material do Colete</option>
+                        </select>
+                        <span asp-validation-for="MaterialColete" style="color: #f00;"></span>
+                        <div class="select-dropdown"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select asp-for="FormaPagamentoColete" asp-items="@(new SelectList(@ViewBag.pgto))">
+                            <option disabled="disabled" selected="selected">** Pagamento do Colete</option>
+                        </select>
+                        <span asp-validation-for="FormaPagamentoColete" style="color: #f00;"></span>
+                        <div class="select-dropdown"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size:16px" align="justify"><span style="color: #f00;"><b> Importante: </b></span>Você deverá enviar ao seu Diretor uma selfie 3X4 sem boné e/ou óculos de sol .</p>
+        <br />
+        <p style="font-size:16px" align="justify"><b>* Nome no colete</b> é como você gostaria de ser chamado pelos outros integrantes. Esse nome, ou apelido, estará na tarjeta do seu colete.</p>
+        <br />
+        <p style="font-size:16px" align="justify"><b>**</b> As formas de pagamento do colete são <b>SOMENTE</b> no boleto ou cartão, à vista ou parcelado em até 10x. Lembrando que parcelado há juros adicionais.</p>
+        <br />
+
+        <div class="p-t-20">
+            <input type="submit" value="Enviar" class="btn btn--radius btn--green"/>
+            @*<a asp-action="Index" class="btn btn--radius btn--green:hover">Retornar</a>*@
+        </div>
+    </form>
+</div>
+
+@section ScriptPage
+{
+    <!--Mascaras-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#cep").inputmask('99999-999');
+            $("#data").inputmask('99/99/9999');
+            $("#fixo").inputmask('(99)9999-9999');
+            $("#cpf").inputmask('999.999.999-99');
+            $("#fone").inputmask('(99)99999-9999');
+            $("#misto").inputmask('(99)999999999');
+            $("#cnpj").inputmask('99.999.999/9999-99');
+        });
+    </script>
+
+    <!--Api Via Cep-->
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            function limpa_formulário_cep() {
+                // Limpa valores do formulário de cep.
+                $("#rua").val("");
+                $("#bairro").val("");
+                $("#cidade").val("");
+                $("#uf").val("");
+                $("#ibge").val("");
+            }
+
+            //Quando o campo cep perde o foco.
+            $("#cep").blur(function () {
+
+                //Nova variável "cep" somente com dígitos.
+                var cep = $(this).val().replace(/\D/g, '');
+
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if (validacep.test(cep)) {
+
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        $("#rua").val("...");
+                        $("#bairro").val("...");
+                        $("#cidade").val("...");
+                        $("#uf").val("...");
+                        $("#ibge").val("...");
+
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                            if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $("#rua").val(dados.logradouro);
+                                $("#bairro").val(dados.bairro);
+                                $("#cidade").val(dados.localidade);
+                                $("#uf").val(dados.uf);
+                                $("#ibge").val(dados.ibge);
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } //end if.
+                else {
+                    //cep sem valor, limpa formulário.
+                    limpa_formulário_cep();
+                }
+            });
+        });
+
+    </script>
+   
+}
