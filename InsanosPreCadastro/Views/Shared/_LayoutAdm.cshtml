@@ -18,11 +18,11 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Formulario" asp-action="Create">Cadastro</a>
-                            </li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Formulario" asp-action="Lista">Lista</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Formulario" asp-action="ListaResumo">Lista-resumo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Formulario" asp-action="ListaCompleta">Lista-completa</a>
                         </li>
                     </ul>
                 </div>
@@ -30,7 +30,7 @@
         </nav>
     </header>
     <div class="container">
-        
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -39,7 +39,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - InsanosPreCadastro - <a asp-area="" asp-controller="Formulario" asp-action="Index">Privacy</a>
+            &copy; 2023 - ISSI <a asp-area="" asp-controller="Formulario" asp-action="Index"></a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

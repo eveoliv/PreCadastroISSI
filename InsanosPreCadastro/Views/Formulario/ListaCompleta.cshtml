@@ -1,0 +1,186 @@
+﻿@model IEnumerable<InsanosPreCadastro.Domain.Formulario>
+
+@{
+    ViewData["Title"] = "Lista";
+}
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
+
+<h6 align="middle">Novos integrantes pré-cadastro - Completa</h6>
+
+
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark" style="font-size:10px" align="justify">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataEnvio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeColete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divisao)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complemento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CEP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneCelular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneFixo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeContatoEmergencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneContatoEmergencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profissao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TamanhoCamiseta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TamanhoColete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaterialColete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormaPagamentoColete)
+            </th>
+        </tr>
+    </thead>
+    <tbody style="font-size:10px">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataEnvio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeColete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Divisao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RG)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNascimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Complemento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bairro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CEP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefoneCelular)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefoneFixo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeContatoEmergencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelefoneContatoEmergencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profissao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TamanhoCamiseta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TamanhoColete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaterialColete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormaPagamentoColete)
+                </td>
+                @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <form autocomplete="off" asp-controller="Formulario" asp-antiforgery="true" asp-action="DownloadReport" method="post">
+        <div class="card-body register-card-body">
+            <div class="form-row">
+                <button type="submit" id="btnsubmit" class="btn btn-success">Exportar para Excel</button>
+            </div>
+        </div>
+    </form>
+</div>

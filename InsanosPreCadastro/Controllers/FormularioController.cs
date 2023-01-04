@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Linq;
+using OfficeOpenXml;
+using OfficeOpenXml.Table;
 using System.Threading.Tasks;
 using InsanosPreCadastro.Data;
 using Microsoft.AspNetCore.Mvc;
 using InsanosPreCadastro.Domain;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using InsanosPreCadastro.Reports;
 using Microsoft.EntityFrameworkCore;
+using InsanosPreCadastro.Models;
 
 namespace InsanosPreCadastro.Controllers
 {
     public class FormularioController : Controller
     {
+        private readonly IReport _report;
         private readonly ApplicationDbContext _context;
 
-        public FormularioController(ApplicationDbContext context)
+        public FormularioController(IReport report, ApplicationDbContext context)
         {
+            _report = report;
             _context = context;
         }
 
@@ -23,8 +30,13 @@ namespace InsanosPreCadastro.Controllers
         public IActionResult Sucesso() => View();
 
         public IActionResult Cadastrado() => View();
-        
-        public async Task<IActionResult> Lista()
+
+        public async Task<IActionResult> ListaCompleta()
+        {
+            return View(await _context.Formulario.ToListAsync());
+        }
+
+        public async Task<IActionResult> ListaResumo()
         {
             return View(await _context.Formulario.ToListAsync());
         }
@@ -51,7 +63,7 @@ namespace InsanosPreCadastro.Controllers
             CriarListas();
             return View();
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NomeColete,NomeCompleto,CPF,RG,DataNascimento,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneCelular,TelefoneFixo,Mail,NomeContatoEmergencia,TelefoneContatoEmergencia,Profissao,TamanhoCamiseta,TamanhoColete,MaterialColete,FormaPagamentoColete,DataEnvio,Divisao")] Formulario formulario)
@@ -77,6 +89,22 @@ namespace InsanosPreCadastro.Controllers
             return View(formulario);
         }
 
+        [HttpPost]
+        public IActionResult DownloadReport(IFormCollection obj)
+        {
+            string reportname = $"ISSI_{Guid.NewGuid():N}.xlsx";
+            var list = _report.GetUserwiseReport();
+            if (list.Count > 0)
+            {
+                var exportbytes = ExportaParaExcel(list, reportname);
+                return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportname);
+            }
+
+            TempData["Message"] = "No Data to Export";
+            return View();
+        }
+
+        #region metodos privados
         private void CriarListas()
         {
             var divisao = new List<string> { "Oeste - SP1", "Sul - SP1", "Extremo Norte - SP1", "Norte - Sp1", "Leste - SP1", "Extremo Oeste - SP1", "Extremo Sul - SP1", "Extremo Leste - SP1" };
@@ -97,6 +125,16 @@ namespace InsanosPreCadastro.Controllers
             ViewBag.pgto = pgto;
         }
 
+        private byte[] ExportaParaExcel<T>(List<T> table, string filename)
+        {
+            using ExcelPackage pack = new();
+            ExcelWorksheet ws = pack.Workbook.Worksheets.Add(filename);
+            ws.Cells["A1"].LoadFromCollection(table, true, TableStyles.None);
+            return pack.GetAsByteArray();
+        }
+        #endregion metodos privados
+
+        #region metodos nao implementados
         /*
         // GET: Formularios/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -183,5 +221,6 @@ namespace InsanosPreCadastro.Controllers
             return _context.Formulario.Any(e => e.Id == id);
         }
     */
+        #endregion metodos nao implementados
     }
 }

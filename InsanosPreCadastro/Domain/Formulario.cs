@@ -10,11 +10,11 @@ namespace InsanosPreCadastro.Domain
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [DisplayName("Nome da Divisão")]
+        [DisplayName("Divisão")]
         public string Divisao { get; set; }
 
         [Required(ErrorMessage ="Campo obrigatório!")]
-        [DisplayName("Nome no Colete")]
+        [DisplayName("Nome Colete")]
         public string NomeColete { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
@@ -31,7 +31,7 @@ namespace InsanosPreCadastro.Domain
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [DisplayName("Data de Nascimento")]
+        [DisplayName("Data Nascimento")]
         public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
@@ -86,21 +86,22 @@ namespace InsanosPreCadastro.Domain
         public string Profissao { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [DisplayName("Tamanho da Camiseta")]
+        [DisplayName("Tamanho Camiseta")]
         public string TamanhoCamiseta { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [DisplayName("Tamanho do Colete")]
+        [DisplayName("Tamanho Colete")]
         public string TamanhoColete { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [DisplayName("Material do Colete")]
+        [DisplayName("Material Colete")]
         public string MaterialColete { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [DisplayName("Forma Pagamento do Colete")]
+        [DisplayName("Forma Pagamento Colete")]
         public string FormaPagamentoColete { get; set; }
-        
+
+        [DisplayName("Data Preenchimento")]
         public DateTime DataEnvio { get; set; }
         
     }
