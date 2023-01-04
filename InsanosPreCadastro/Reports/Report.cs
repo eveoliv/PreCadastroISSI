@@ -34,7 +34,7 @@ namespace InsanosPreCadastro.Reports
                         CEP = item.CEP,
                         Endereco = item.Endereco,
                         DataEnvio = item.DataEnvio.ToString(),
-                        DataNascimento = item.DataNascimento.ToString(),
+                        DataNascimento = item.DataNascimento.ToString("dd/MM/yyyy"),
                         Divisao = item.Divisao,
                         Cidade = item.Cidade,
                         Complemento = item.Complemento,
