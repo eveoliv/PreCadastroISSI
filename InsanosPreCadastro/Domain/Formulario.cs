@@ -29,6 +29,7 @@ namespace InsanosPreCadastro.Domain
         [DisplayName("RG")]
         public string RG { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Required(ErrorMessage = "Campo obrigatório!")]
         [DisplayName("Data de Nascimento")]
         public DateTime DataNascimento { get; set; }

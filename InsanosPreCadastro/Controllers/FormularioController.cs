@@ -97,7 +97,6 @@ namespace InsanosPreCadastro.Controllers
             ViewBag.pgto = pgto;
         }
 
-
         /*
         // GET: Formularios/Edit/5
         public async Task<IActionResult> Edit(int? id)

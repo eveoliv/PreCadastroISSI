@@ -4,17 +4,27 @@
     ViewData["Title"] = "Lista";
 }
 
-<h4>Novos integrantes</h4>
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+}
 
-<table class="table">
-    <thead>
+<h6 align="middle">Novos integrantes pré-cadastro</h6>
+
+
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark" style="font-size:10px" align="justify">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NomeColete)
+                @Html.DisplayNameFor(model => model.DataEnvio)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NomeCompleto)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.NomeColete)
             </th>
+            
+
             <th>
                 @Html.DisplayNameFor(model => model.CPF)
             </th>
@@ -75,21 +85,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.FormaPagamentoColete)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataEnvio)
-            </th>
-            <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
+    <tbody style="font-size:10px">
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NomeColete)
+                @Html.DisplayFor(modelItem => item.DataEnvio)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeCompleto)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeColete)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
@@ -150,15 +161,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FormaPagamentoColete)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataEnvio)
-            </td>
             @*<td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>*@
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </td>*@
         </tr>
-}
+        }
     </tbody>
 </table>
