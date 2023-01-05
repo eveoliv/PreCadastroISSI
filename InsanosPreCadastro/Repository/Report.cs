@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using InsanosPreCadastro.Data;
-using InsanosPreCadastro.Domain;
 using InsanosPreCadastro.Models;
 using System.Collections.Generic;
 
-namespace InsanosPreCadastro.Reports
+namespace InsanosPreCadastro.Repository
 {
     public class Report : IReport
     {

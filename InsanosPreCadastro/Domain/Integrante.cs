@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InsanosPreCadastro.Domain
 {
-    public class Formulario
-    {
-        [Key]
-        public int Id { get; set; }
-
+    public class Integrante : Base
+    {      
         [Required(ErrorMessage = "Campo obrigatório!")]
         [DisplayName("Divisão")]
         public string Divisao { get; set; }

@@ -1,11 +1,11 @@
 using System.Globalization;
 using InsanosPreCadastro.Data;
 using System.Collections.Generic;
-using InsanosPreCadastro.Reports;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using InsanosPreCadastro.Repository;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

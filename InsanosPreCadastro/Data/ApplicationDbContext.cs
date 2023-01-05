@@ -8,7 +8,7 @@ namespace InsanosPreCadastro.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Formulario> Formulario { get; set; }
+        public DbSet<Integrante> Formulario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 

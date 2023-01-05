@@ -1,7 +1,7 @@
 ﻿using InsanosPreCadastro.Models;
 using System.Collections.Generic;
 
-namespace InsanosPreCadastro.Reports
+namespace InsanosPreCadastro.Repository
 {
     public interface IReport
     {

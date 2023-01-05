@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Linq;
 using OfficeOpenXml;
+using System.Net.Mail;
 using OfficeOpenXml.Table;
 using System.Threading.Tasks;
 using InsanosPreCadastro.Data;
@@ -8,20 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 using InsanosPreCadastro.Domain;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using InsanosPreCadastro.Reports;
+using InsanosPreCadastro.Repository;
 using Microsoft.EntityFrameworkCore;
-using InsanosPreCadastro.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace InsanosPreCadastro.Controllers
 {
     public class FormularioController : Controller
     {
         private readonly IReport _report;
+        private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
 
-        public FormularioController(IReport report, ApplicationDbContext context)
+        public FormularioController(IReport report, IConfiguration configuration, ApplicationDbContext context)
         {
             _report = report;
+            _configuration = configuration;
             _context = context;
         }
 
@@ -38,6 +42,9 @@ namespace InsanosPreCadastro.Controllers
 
         public async Task<IActionResult> ListaResumo()
         {
+            var a = _configuration["appsettings:Mail:Smtp"];
+            var b = _configuration.GetValue<string>("Mail:Port");
+            Mail("Everton Oliveira", DateTime.Now.ToString(), "everton_ace@hotmail.com");
             return View(await _context.Formulario.ToListAsync());
         }
 
@@ -66,7 +73,7 @@ namespace InsanosPreCadastro.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NomeColete,NomeCompleto,CPF,RG,DataNascimento,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneCelular,TelefoneFixo,Mail,NomeContatoEmergencia,TelefoneContatoEmergencia,Profissao,TamanhoCamiseta,TamanhoColete,MaterialColete,FormaPagamentoColete,DataEnvio,Divisao")] Formulario formulario)
+        public async Task<IActionResult> Create([Bind("Id,NomeColete,NomeCompleto,CPF,RG,DataNascimento,Endereco,Numero,Complemento,Bairro,Cidade,UF,CEP,TelefoneCelular,TelefoneFixo,Mail,NomeContatoEmergencia,TelefoneContatoEmergencia,Profissao,TamanhoCamiseta,TamanhoColete,MaterialColete,FormaPagamentoColete,DataEnvio,Divisao")] Integrante formulario)
         {
             if (string.IsNullOrEmpty(formulario.CPF))
             {
@@ -83,6 +90,7 @@ namespace InsanosPreCadastro.Controllers
                 formulario.DataEnvio = DateTime.Now;
                 _context.Add(formulario);
                 await _context.SaveChangesAsync();
+                //Mail("Everton Oliveira", DateTime.Now.ToString(), "everton_ace@hotmail.com");
                 return RedirectToAction(nameof(Sucesso));
             }
             CriarListas();
@@ -102,6 +110,40 @@ namespace InsanosPreCadastro.Controllers
 
             TempData["Message"] = "No Data to Export";
             return View();
+        }
+
+        private void Mail(string pessoa, string data, string mailAdm)
+        {
+            var a = _configuration["appsettings:Mail:Smtp"];
+            var b = _configuration.GetValue<string>("Mail:Port");
+            var c = _configuration.GetValue<string>("Mail:User");
+            var d = _configuration.GetValue<string>("Mail:PwdApp");
+
+            try
+            {
+                var emailMessage = new MailMessage();
+                var smtp = new SmtpClient(_configuration.GetValue<string>("Mail:Smtp"), _configuration.GetValue<int>("Mail:Port"))
+                {
+                    EnableSsl = true,
+                    Timeout = 60 * 60,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential()
+                };
+                emailMessage.From = new MailAddress(_configuration.GetValue<string>("Mail:User"), _configuration.GetValue<string>("Mail:PwdApp"));
+                emailMessage.Body = $"Olá,<br />{pessoa} nos enviou o formulário preenchido em {data}. <br /> Att, <br /> ADM Regional SP1";
+                emailMessage.Subject = $"{pessoa} enviou as informações.";
+                emailMessage.IsBodyHtml = true;
+                emailMessage.Priority = MailPriority.Normal;
+                emailMessage.To.Add(mailAdm);
+                //emailMessage.To.Add(_config.GetSection("Mail").GetValue<string>("Regional_1"));
+                //emailMessage.To.Add(_config.GetSection("Mail").GetValue<string>("Regional_2"));
+
+                smtp.Send(emailMessage);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.ToString());
+            }
         }
 
         #region metodos privados

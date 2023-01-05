@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InsanosPreCadastro.Data.DomainDbConfig
 {
-    public class FormularioConfiguration : IEntityTypeConfiguration<Formulario>
+    public class FormularioConfiguration : IEntityTypeConfiguration<Integrante>
     {
-        public void Configure(EntityTypeBuilder<Formulario> builder)
+        public void Configure(EntityTypeBuilder<Integrante> builder)
         {
             builder.ToTable("Cadastro");
             builder.Property(p => p.Id).HasColumnName("Id").HasColumnType("integer");
