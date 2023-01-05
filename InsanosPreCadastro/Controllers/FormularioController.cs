@@ -41,9 +41,7 @@ namespace InsanosPreCadastro.Controllers
         }
 
         public async Task<IActionResult> ListaResumo()
-        {
-            var a = _configuration["appsettings:Mail:Smtp"];
-            var b = _configuration.GetValue<string>("Mail:Port");
+        {           
             Mail("Everton Oliveira", DateTime.Now.ToString(), "everton_ace@hotmail.com");
             return View(await _context.Formulario.ToListAsync());
         }
@@ -90,7 +88,7 @@ namespace InsanosPreCadastro.Controllers
                 formulario.DataEnvio = DateTime.Now;
                 _context.Add(formulario);
                 await _context.SaveChangesAsync();
-                //Mail("Everton Oliveira", DateTime.Now.ToString(), "everton_ace@hotmail.com");
+                Mail("Everton Oliveira", DateTime.Now.ToString(), "everton_ace@hotmail.com");
                 return RedirectToAction(nameof(Sucesso));
             }
             CriarListas();
@@ -112,13 +110,8 @@ namespace InsanosPreCadastro.Controllers
             return View();
         }
 
-        private void Mail(string pessoa, string data, string mailAdm)
-        {
-            var a = _configuration["appsettings:Mail:Smtp"];
-            var b = _configuration.GetValue<string>("Mail:Port");
-            var c = _configuration.GetValue<string>("Mail:User");
-            var d = _configuration.GetValue<string>("Mail:PwdApp");
-
+        private void Mail(string pessoa, string data, string admDivisao)
+        {         
             try
             {
                 var emailMessage = new MailMessage();
@@ -134,9 +127,9 @@ namespace InsanosPreCadastro.Controllers
                 emailMessage.Subject = $"{pessoa} enviou as informações.";
                 emailMessage.IsBodyHtml = true;
                 emailMessage.Priority = MailPriority.Normal;
-                emailMessage.To.Add(mailAdm);
-                //emailMessage.To.Add(_config.GetSection("Mail").GetValue<string>("Regional_1"));
-                //emailMessage.To.Add(_config.GetSection("Mail").GetValue<string>("Regional_2"));
+                emailMessage.To.Add(admDivisao);
+                //emailMessage.To.Add(_config.GetSection("Mail").GetValue<string>("DiretorRegional"));
+                //emailMessage.To.Add(_config.GetSection("Mail").GetValue<string>("AdmRegional"));
 
                 smtp.Send(emailMessage);
             }
